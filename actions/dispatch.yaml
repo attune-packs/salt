@@ -1,0 +1,28 @@
+ref: salt.dispatch
+label: "Dispatch Salt Function (Privileged)"
+description: "Privileged generic NetAPI dispatch with mandatory Key opt-in and a non-bypassable dangerous-function denylist"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: salt_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [privileged]
+parameters:
+  credential_key: {type: string, default: salt.credentials, required: true, description: "Pack-owned encrypted Salt authentication Key ref"}
+  client: {type: string, enum: [local, local_async, runner, runner_async, wheel], required: true}
+  function: {type: string, required: true, pattern: "^[A-Za-z_][A-Za-z0-9_]*\\.[A-Za-z_][A-Za-z0-9_]*$"}
+  target: {type: string, description: "Required for local clients; exact IDs are safest"}
+  expr_form: {type: string, enum: [glob, list, grain, grain_pcre, pillar, pillar_pcre, nodegroup, compound, ipcidr, pcre], default: glob}
+  confirm_broad_target: {type: boolean, default: false, description: "Must also be enabled by Key policy"}
+  args: {type: array, default: [], description: "Positional arguments for local clients only"}
+  kwargs: {type: object, default: {}, description: "Function arguments; reserved lowstate/auth keys are rejected"}
+  salt_timeout_seconds: {type: integer, minimum: 1, maximum: 300, default: 30}
+output:
+  operation: {type: string, required: true}
+  data: {type: any, required: true}
+  meta: {type: object, required: true}
+  jid: {type: string}
+  minions: {type: array}
+tags: [salt, netapi, privileged, dispatch]

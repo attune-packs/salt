@@ -1,0 +1,40 @@
+ref: salt
+label: "Salt"
+description: "Policy-enforced Salt NetAPI automation with curated minion operations and asynchronous job handling"
+version: "0.1.0"
+author: "Attune"
+email: "support@attune.systems"
+system: false
+enabled: true
+
+conf_schema: {}
+config: {}
+
+meta:
+  category: integration
+  documentation_url: "https://github.com/attune-packs/salt"
+  repository_url: "https://github.com/attune-packs/salt"
+  source_repository: "https://github.com/StackStorm-Exchange/stackstorm-salt"
+  source_version: "3.0.1"
+  source_revision: "f053dcedea737c3632d88b7b7e7671ca93e81bd2"
+  source_tag: "v3.0.1"
+  license: "Apache-2.0"
+  salt_api_reviewed_version: "3008.1-2"
+
+tags: [salt, saltstack, configuration-management, netapi, integration]
+runtime_deps: [python]
+dependencies: []
+
+testing:
+  enabled: true
+  discovery:
+    method: directory
+    path: tests
+  runners:
+    python:
+      type: unittest
+      entry_point: tests/test_pack.py
+      timeout: 120
+      result_format: simple
+  min_pass_rate: 1.0
+  on_failure: block

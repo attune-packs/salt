@@ -1,0 +1,15 @@
+[
+  {"ref":"salt.dispatch","access":"privileged","kind":"generic","clients":["local","local_async","runner","runner_async","wheel"]},
+  {"ref":"salt.test_ping","access":"standard","kind":"curated"},
+  {"ref":"salt.grains_get","access":"standard","kind":"curated"},
+  {"ref":"salt.pillar_get","access":"privileged","kind":"curated"},
+  {"ref":"salt.state_apply","access":"privileged","kind":"curated"},
+  {"ref":"salt.state_highstate","access":"privileged","kind":"curated"},
+  {"ref":"salt.package","access":"privileged","kind":"curated"},
+  {"ref":"salt.service","access":"privileged","kind":"curated"},
+  {"ref":"salt.file_inspect","access":"standard","kind":"curated-read-only"},
+  {"ref":"salt.user_inspect","access":"standard","kind":"curated-read-only"},
+  {"ref":"salt.jobs_list","access":"privileged","kind":"curated"},
+  {"ref":"salt.job_lookup","access":"privileged","kind":"curated"},
+  {"ref":"salt.minions","access":"standard","kind":"curated"}
+]

@@ -1,0 +1,27 @@
+ref: salt.package
+label: "Manage Minion Packages"
+description: "Install or remove a bounded list of validated package names"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: salt_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [privileged]
+parameters:
+  credential_key: {type: string, default: salt.credentials, required: true}
+  target: {type: string, required: true}
+  expr_form: {type: string, enum: [glob, list, grain, grain_pcre, pillar, pillar_pcre, nodegroup, compound, ipcidr, pcre], default: glob}
+  confirm_broad_target: {type: boolean, default: false}
+  action: {type: string, enum: [install, remove], required: true}
+  packages: {type: array, required: true, min_items: 1, max_items: 100}
+  async: {type: boolean, default: true}
+  salt_timeout_seconds: {type: integer, minimum: 1, maximum: 300, default: 30}
+output:
+  operation: {type: string, required: true}
+  data: {type: any, required: true}
+  meta: {type: object, required: true}
+  jid: {type: string}
+  minions: {type: array}
+tags: [salt, minion, package, mutation, privileged]

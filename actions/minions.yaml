@@ -1,0 +1,21 @@
+ref: salt.minions
+label: "List or Inspect Salt Minions"
+description: "List minion data or inspect one percent-encoded exact minion ID through /minions"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: salt_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: salt.credentials, required: true}
+  minion_id: {type: string, description: "Exact minion ID; omit to list all visible minions"}
+output:
+  operation: {type: string, required: true}
+  data: {type: any, required: true}
+  meta: {type: object, required: true}
+  jid: {type: string}
+  minions: {type: array}
+tags: [salt, minion, targeting, read]
